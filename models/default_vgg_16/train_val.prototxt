@@ -13,29 +13,8 @@ layer {
     mirror: true
  }
  data_param {
-    source: "examples/imagenet/ilsvrc12_train_lmdb"
+    source: "/home/yexi/caffe/data/VOC0712/VOCdevkit/VOC0712/lmdb/VOC0712_trainval_lmdb"
     batch_size: 64
-    backend: LMDB
-  }
-  top: "data"
-  top: "label"
-}
-layer {
-  name: "data"
-  type: "Data"
-  include {
-    phase: TEST
-  }
- transform_param {
-    crop_size: 224
-    mean_value: 104
-    mean_value: 117
-    mean_value: 124
-    mirror: false
- }
- data_param {
-    source: "examples/imagenet/ilsvrc12_val_lmdb"
-    batch_size: 50
     backend: LMDB
   }
   top: "data"

@@ -42,6 +42,7 @@ class RoIDataLayer(caffe.Layer):
 
     def _get_next_minibatch_inds(self):
         """Return the roidb indices for the next minibatch."""
+        
         if self._cur + cfg.TRAIN.IMS_PER_BATCH >= len(self._roidb):
             self._shuffle_roidb_inds()
 
@@ -94,6 +95,7 @@ class RoIDataLayer(caffe.Layer):
 
         # data blob: holds a batch of N images, each with 3 channels
         idx = 0
+        cfg.TRAIN.IMS_PER_BATCH = 1; # added by LZ
         top[idx].reshape(cfg.TRAIN.IMS_PER_BATCH, 3,
             max(cfg.TRAIN.SCALES), cfg.TRAIN.MAX_SIZE)
         self._name_to_top_map['data'] = idx
@@ -155,6 +157,15 @@ class RoIDataLayer(caffe.Layer):
             top[top_ind].reshape(*(blob.shape))
             # Copy data into net's input blobs
             top[top_ind].data[...] = blob.astype(np.float32, copy=False)
+            print "input data is: "
+            print top[top_ind].data[...];
+            imshow_img = top[top_ind].data[...];
+            print "imshow_img.shape is:"
+            print imshow_img.shape
+            # if imshow_img.ndim == 4:                
+            #     import cv2;
+            #     cv2.imshow(imshow_img);
+            #     cv2.waitKey(56000)
 
     def backward(self, top, propagate_down, bottom):
         """This layer does not propagate gradients."""

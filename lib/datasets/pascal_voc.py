@@ -12,7 +12,8 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import scipy.sparse
 import scipy.io as sio
-import utils.cython_bbox
+import cython_bbox
+# import utils.cython_bbox
 import cPickle
 import subprocess
 import uuid
@@ -88,7 +89,8 @@ class pascal_voc(imdb):
         """
         Return the default path where PASCAL VOC is expected to be installed.
         """
-        return os.path.join(cfg.DATA_DIR, 'VOCdevkit' + self._year)
+        return os.path.join('/home/dailingzheng/caffe/data/VOC2012/', 'VOCdevkit' );
+        # return os.path.join(cfg.DATA_DIR, 'VOCdevkit' + self._year)
 
     def gt_roidb(self):
         """

@@ -67,7 +67,7 @@ class PascalMultilabelDataLayerSync(caffe.Layer):
         # === Read input parameters ===
 
         # params is a python dictionary with layer parameters.
-        params = eval(self.param_str)
+        params = eval(self.param_str_)
 
         # Check the paramameters for validity.
         check_params(params)

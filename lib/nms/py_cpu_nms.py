@@ -19,6 +19,7 @@ def py_cpu_nms(dets, thresh):
     order = scores.argsort()[::-1]
 
     keep = []
+    print "keep is none"
     while order.size > 0:
         i = order[0]
         keep.append(i)

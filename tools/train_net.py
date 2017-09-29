@@ -74,6 +74,7 @@ def combined_roidb(imdb_names):
         imdb = datasets.imdb.imdb(imdb_names)
     else:
         imdb = get_imdb(imdb_names)
+
     return imdb, roidb
 
 if __name__ == '__main__':
@@ -110,3 +111,4 @@ if __name__ == '__main__':
     train_net(args.solver, roidb, output_dir,
               pretrained_model=args.pretrained_model,
               max_iters=args.max_iters)
+#train_net(solver, roidb, output_dir, model)

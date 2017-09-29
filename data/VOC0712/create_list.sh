@@ -1,21 +1,22 @@
 #!/bin/bash
 
-root_dir="$DATAPATH/data/VOCdevkit"
+root_dir="VOCdevkit"
 sub_dir=ImageSets/Main
 bash_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-for dataset in trainval test
+for dataset in trainval 
 do
   dst_file=$bash_dir/$dataset.txt
+  echo $dst_file
   if [ -f $dst_file ]
   then
     rm -f $dst_file
   fi
-  for name in VOC2007 VOC2012
+  for name in  VOC2012
   do
-    if [[ $dataset == "test" && $name == "VOC2012" ]]
-    then
-      continue
-    fi
+#    if [[ $dataset != "trainval" && $name != "VOC2012" ]]
+#    then
+#      contine
+#    fi
     echo "Create list for $name $dataset..."
     dataset_file=$root_dir/$name/$sub_dir/$dataset.txt
 
