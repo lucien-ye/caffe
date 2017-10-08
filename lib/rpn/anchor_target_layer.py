@@ -76,8 +76,8 @@ class AnchorTargetLayer(caffe.Layer):
             'Only single item batches are supported'
 
         # map of shape (..., H, W)
-        print "bottom[0].data in anchor_target_layer is "
-        print bottom[0].data
+        # print "bottom[0].data in anchor_target_layer is "
+        # print bottom[0].data
         
         height, width = bottom[0].data.shape[-2:]
         # GT boxes (x1, y1, x2, y2, label)

@@ -157,11 +157,11 @@ class RoIDataLayer(caffe.Layer):
             top[top_ind].reshape(*(blob.shape))
             # Copy data into net's input blobs
             top[top_ind].data[...] = blob.astype(np.float32, copy=False)
-            print "input data is: "
-            print top[top_ind].data[...];
-            imshow_img = top[top_ind].data[...];
-            print "imshow_img.shape is:"
-            print imshow_img.shape
+            # print "input data is: "
+            # print top[top_ind].data[...];
+            # imshow_img = top[top_ind].data[...];
+            # print "imshow_img.shape is:"
+            # print imshow_img.shape
             # if imshow_img.ndim == 4:                
             #     import cv2;
             #     cv2.imshow(imshow_img);

@@ -62,7 +62,7 @@ class ProposalLayer(caffe.Layer):
             'Only single item batches are supported'
         self.phase = 'TRAIN';    
         cfg_key = str(self.phase) # either 'TRAIN' or 'TEST'
-        print 'cfg_key is {}'.format(cfg_key);
+        # print 'cfg_key is {}'.format(cfg_key);
         pre_nms_topN  = cfg[cfg_key].RPN_PRE_NMS_TOP_N
         post_nms_topN = cfg[cfg_key].RPN_POST_NMS_TOP_N
         nms_thresh    = cfg[cfg_key].RPN_NMS_THRESH
@@ -111,8 +111,8 @@ class ProposalLayer(caffe.Layer):
         # reshape to (1 * H * W * A, 4) where rows are ordered by (h, w, a)
         # in slowest to fastest order
         bbox_deltas = bbox_deltas.transpose((0, 2, 3, 1)).reshape((-1, 4))
-        print "bbox_deltas is: ";
-        print bbox_deltas;
+        # print "bbox_deltas is: ";
+        # print bbox_deltas;
 
         # Same story for the scores:
         #
@@ -144,14 +144,14 @@ class ProposalLayer(caffe.Layer):
         # 6. apply nms (e.g. threshold = 0.7)
         # 7. take after_nms_topN (e.g. 300)
         # 8. return the top proposals (-> RoIs top)
-        print proposals;
-        print scores;
-        print "np.hstack is:"
-        print np.hstack((proposals, scores));
+        # print proposals;
+        # print scores;
+        # print "np.hstack is:"
+        # print np.hstack((proposals, scores));
         keep = py_cpu_nms(np.hstack((proposals, scores)), nms_thresh);
 
-        print "keep is:";
-        print keep;
+        # print "keep is:";
+        # print keep;
         if post_nms_topN > 0:
             keep = keep[:post_nms_topN]
         proposals = proposals[keep, :]
@@ -198,7 +198,7 @@ def py_cpu_nms(dets, thresh):
     order = scores.argsort()[::-1]
 
     keep = []
-    print "keep is none"
+    # print "keep is none"
     while order.size > 0:
         i = order[0]
         keep.append(i)

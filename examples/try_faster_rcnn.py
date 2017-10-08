@@ -20,11 +20,11 @@ import matplotlib.pyplot as plt
 from copy import copy
 import roi_data_layer.roidb
 
-from fast_rcnn.train import get_training_roidb, train_net
+from fast_rcnn.train import get_training_roidb, train_net, filter_roidb
 from fast_rcnn.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from datasets.factory import get_imdb
 import datasets.imdb
-import train_net
+import train_net 
 
 
 import pascal_voc_try as PA
@@ -34,29 +34,40 @@ import tools
 pascal_root = osp.join('/home/dailingzheng/caffe/data/VOC2012/VOCdevkit/VOC2012/')
 
 
-classes = np.array(['aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat', 'chair', 'cow',
-        'diningtable', 'dog', 'horse', 'motorbike', 'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'])
-if not os.path.isfile(caffe_root + 'models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel'):
-    print("Download pre-trained CaffeNet model ...")
-
 caffe.set_mode_cpu()
-
 
 ## define the cafee model: structure and train and valnet 
 solver = caffe.SGDSolver(osp.join('/home/dai/caffe/models/pascal_voc/VGG16/faster_rcnn_end2end/', 'solver.prototxt'));
-solver.net.copy_from('/home/dai/py-faster-rcnn/data/faster_rcnn_models/' + 'VGG16_faster_rcnn_final.caffemodel');
+# solver.net.copy_from('/home/dai/py-faster-rcnn/data/faster_rcnn_models/' + 'VGG16_faster_rcnn_final.caffemodel');
+pretrained_model = '/home/dai/py-faster-rcnn/data/faster_rcnn_models/' + 'VGG16_faster_rcnn_final.caffemodel';
+max_iters = 1000;
+output_dir = '../';
+# based on MobileNet
+#solver = caffe.SGDSolver(osp.join('/home/dai/caffe/models/pascal_voc/MobileNet/faster_rcnn_end2end/', 'solver.prototxt'));
+#solver.net.copy_from('/home/dai/caffe/models/mobilenet//' + 'mobilenet.caffemodel');
+
 
 imdb_name = "voc_2012_trainval";
 imdb, roidb = train_net.combined_roidb(imdb_name)
 
 print 'len of roidb is %d' % (len(roidb), );
-print repr(roidb[0]);
+roidb = filter_roidb(roidb);
+# print repr(roidb[0]);
 
 solver.net.layers[0].set_roidb(roidb)
+solver.step(11000);
+
+
+# train_net(solver, roidb, output_dir,
+#           pretrained_model=pretrained_model,
+#           max_iters=max_iters);
+
 # print "net.blobs is:"
 # print solver.net.blobs['data'].data[...]
 
-solver.step(1);
+
+
+
 
 
 # #read the image and  its label, positions
