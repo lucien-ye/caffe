@@ -26,7 +26,7 @@ include(cmake/Summary.cmake)
 include(cmake/ConfigGen.cmake)
 
 # ---[ Options
-caffe_option(CPU_ONLY  "Build Caffe without CUDA support" OFF) # TODO: rename to USE_CUDA
+caffe_option(CPU_ONLY  "Build Caffe without CUDA support" ON) # TODO: rename to USE_CUDA
 caffe_option(USE_OPENMP "Build Caffe with OpenMP support" ON )
 caffe_option(USE_CUDNN "Build Caffe with cuDNN library support" ON IF NOT CPU_ONLY)
 caffe_option(USE_MKL2017_AS_DEFAULT_ENGINE "Use MKL2017 primitives for supported layers" ON)
@@ -117,6 +117,7 @@ add_subdirectory(src/gmock)
 set(BUILD_SHARED_LIBS on)
 add_subdirectory(src/caffe)
 add_subdirectory(tools)
+add_subdirectory(py_tools)
 add_subdirectory(examples)
 add_subdirectory(python)
 add_subdirectory(matlab)
